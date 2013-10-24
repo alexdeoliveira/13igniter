@@ -26,16 +26,16 @@ Este repositório contém uma estrutura de plugins e bibliotecas pré-configurad
 
 ##Instalação
 Download zip
-```https://github.com/alexdeoliveira/13igniter´´´
+```https://github.com/alexdeoliveira/13igniter```
 
 ###Configurações
 Primeiro você deve colar as pastas e arquivos deste repositório sobre o Code Igniter.
 
 Fazendo o Ion Auth funcionar:
-```http://benedmunds.com/ion_auth/#install´´´
+```http://benedmunds.com/ion_auth/#install```
 
 Fazendo o DataMapper funcionar:
-```http://datamapper.wanwizard.eu/pages/installation.html´´´
+```http://datamapper.wanwizard.eu/pages/installation.html```
 
 Ajustando os dados do teu sistema:
 {{{application/config/config1.php}}}
@@ -44,10 +44,10 @@ Ajustando os dados do teu sistema:
 Para criar o banco de dados abra o arquivo sql que se encontra em {{{sql/13igniter_db.mwb}}} através do MySQL Workbench e execute o Forward Engineer do menu Database ou {{{GTRL + G}}}
 
 ##Bugs
-```https://github.com/alexdeoliveira/13igniter/issues´´´
+```https://github.com/alexdeoliveira/13igniter/issues```
 
 ##Autor
-Aléx de Oliveira ```http://twitter.com/alex_web|@alex_web´´´
+Aléx de Oliveira ```http://twitter.com/alex_web|@alex_web```
 
 ##Colaboradores
-```http://13bits.com.br´´´
+```http://13bits.com.br```
