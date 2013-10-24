@@ -46,6 +46,13 @@
 			</div>
 	  </div>
 
+	  <div class="form-group">
+	  	<label for="groups[]" class="col-lg-2">Grupos</label>
+	  	<div class="col-lg-10">
+	  		<?php echo form_multiselect('groups[]', $groups, $this->input->post('groups') ? $this->input->post('groups') : $group_set, 'class="chzn-select form-control"'); ?>
+	  	</div>
+	  </div>
+
 
 	  <?php echo form_hidden('id', $user->id);?>
 	  <?php echo form_hidden($csrf); ?>

@@ -15,6 +15,9 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo assets_url('css/style.css'); ?>">
 		<link rel="stylesheet" type="text/css" href="<?php echo assets_url('fontello/css/ignitercms.css'); ?>">
 		<!--[if IE 7]><link rel="stylesheet" href="<?php echo assets_url('fontello/css/ignitercms-ie7.css'); ?>"><![endif]-->
+		
+		<!-- Chosen v1.0.0 -->
+		<link rel="stylesheet" href="<?php echo assets_url('chosen/chosen.css'); ?>" />
 
 		<!-- Custom styles for this template -->
 		<link href="<?php echo assets_url('css/offcanvas.css') ?>" rel="stylesheet">

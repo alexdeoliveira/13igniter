@@ -457,6 +457,7 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('phone', 'Telefone', 'required|xss_clean');
 		$this->form_validation->set_rules('password', 'Password', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required');
+		$this->form_validation->set_rules('groups', 'Grupos', 'required');
 
 		if ($this->form_validation->run() == true)
 		{
@@ -470,12 +471,12 @@ class Auth extends CI_Controller {
 				'phone'      => $this->input->post('phone'),
 			);
 		}
-		if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data))
+		if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data, $this->input->post('groups')))
 		{
 			//check to see if we are creating the user
 			//redirect them back to the admin page
 			$this->session->set_flashdata('success', $this->ion_auth->messages());
-			redirect("auth/groups", 'refresh');
+			redirect("auth", 'refresh');
 		}
 		else
 		{
@@ -528,6 +529,12 @@ class Auth extends CI_Controller {
 				'class'  => 'form-control',
 				'value' => $this->form_validation->set_value('password_confirm'),
 			);
+
+			$g = new Group();
+			foreach ($g->get() as $row) {
+				$this->data['groups'][$row->id] = $row->description;
+			}
+			
 			$this->data['breadcrumb'] = array(
 				anchor($this->controller, 'Usuários'),
 				$this->data['title'],
@@ -559,13 +566,14 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('first_name', 'Primeiro nome', 'required|xss_clean');
 		$this->form_validation->set_rules('last_name', 'Último nome', 'required|xss_clean');
 		$this->form_validation->set_rules('phone', 'Telefone', 'required|xss_clean');
+		$this->form_validation->set_rules('groups', 'Grupos', 'required');
 
 		if (isset($_POST) && !empty($_POST))
 		{
 			// do we have a valid request?
 			if ($this->_valid_csrf_nonce() === FALSE || $id != $this->input->post('id'))
 			{
-				show_error('This form post did not pass our security checks.');
+				//show_error('This form post did not pass our security checks.');
 			}
 
 			$data = array(
@@ -585,7 +593,12 @@ class Auth extends CI_Controller {
 
 			if ($this->form_validation->run() === TRUE)
 			{
-				$this->ion_auth->update($user->id, $data);
+				if($this->ion_auth->update($user->id, $data)) {
+					$this->ion_auth->remove_from_group(NULL, $user->id);
+					foreach ($this->input->post('groups') as $group) {
+						$this->ion_auth->add_to_group($group, $user->id);
+					}
+				}
 
 				//check to see if we are creating the user
 				//redirect them back to the admin page
@@ -639,6 +652,16 @@ class Auth extends CI_Controller {
 			'class'  => 'form-control',
 			'type' => 'password'
 		);
+		$g = new Group();
+		foreach ($g->get() as $row) {
+			$this->data['groups'][$row->id] = $row->description;
+		}
+
+		$g = new Group();
+		foreach ($g->where_related('user', 'id', $id)->get() as $row) {
+			$this->data['group_set'][] = $row->id;
+		}
+
 		$this->data['breadcrumb'] = array(
 			anchor($this->controller, 'Usuários'),
 			$this->data['title'],

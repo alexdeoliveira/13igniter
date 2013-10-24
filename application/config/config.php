@@ -16,7 +16,7 @@
 */
 if (ENVIRONMENT === 'development') 
 {
-	$config['base_url']	= 'http://localhost/codeigniter/';
+	$config['base_url']	= 'http://localhost/';
 }
 elseif (ENVIRONMENT === 'testing') 
 {
@@ -80,7 +80,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'english';
+$config['language']	= 'pt_BR';
 
 /*
 |--------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 // Nome breve da entidade proprietária do site.
-$config['entidade_nome_breve'] = 'Nome do site';
+$config['entidade_nome_breve'] = '13igniter';
 
 // Email para o qual enviar mensagens de contato.
 $config['entidade_email_contato'] = 'exemplo@site.com';
@@ -10,10 +10,10 @@ $config['entidade_email_contato'] = 'exemplo@site.com';
 $config['site_description'] = 'Desrição do site';
 
 // Keywords padrão do site.
-$config['site_keywords'] = 'ignitercms, php, codeigniter, datamapper';
+$config['site_keywords'] = '13igniter, php, codeigniter, datamapper';
 
 // Código do Google Analytics para este site.
-$config['ga_codigo'] = 'UA-2832620-27';
+$config['ga_codigo'] = '';
 
 // Email para acesso à conta do Google Analytics deste site.
 //$config['ga_email'] = 'email@exemplo.com';
@@ -42,7 +42,7 @@ $config['assets_directory'] = 'assets';
 // qualquer arquivo do diretório de assets.
 // Utilizada pela função assets_url() do MY_url_helper.
 // Formato: 'yyyymmddxx', sendo xx de 01 a 99.
-$config['assets_version'] = '2012111601';
+$config['assets_version'] = '2013102401';
 
 if (ENVIRONMENT === 'development')
 {

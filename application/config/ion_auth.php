@@ -33,7 +33,7 @@ $config['collections']['login_attempts'] = 'login_attempts';
 */
 $config['tables']['users']           = 'users';
 $config['tables']['groups']          = 'groups';
-$config['tables']['users_groups']    = 'users_groups';
+$config['tables']['users_groups']    = 'groups_users';
 $config['tables']['login_attempts']  = 'login_attempts';
 
 /*
@@ -164,7 +164,7 @@ $config['store_salt']  = FALSE;
  | Message Delimiters.
  | -------------------------------------------------------------------------
  */
-$config['message_start_delimiter'] = '<p class="text-warning">'; 	// Message start delimiter
+$config['message_start_delimiter'] = '<p>'; 	// Message start delimiter
 $config['message_end_delimiter']   = '</p>'; 	// Message end delimiter
 $config['error_start_delimiter']   = '<p class="text-danger">';		// Error mesage start delimiter
 $config['error_end_delimiter']     = '</p>';	// Error mesage end delimiter

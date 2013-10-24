@@ -58,7 +58,7 @@ class Example extends CI_Controller {
 	 */
 	function p_listar()
 	{
-		acesso('root', 1);
+		acesso('admin', 1);
 		$this->data['list_fields'] = array(
 			'created' 	=> 'Data Cadastro',
 			'updated' 	=> 'Data Edição',
@@ -94,7 +94,7 @@ class Example extends CI_Controller {
 	 */
 	function p_editar($rotulo = '')
 	{
-		acesso('root', 1);
+		acesso('admin', 1);
 
 		$d = new Model();
 		$this->data['data'] = $d->where('rotulo', $rotulo)->get();
@@ -122,6 +122,9 @@ class Example extends CI_Controller {
 
 			$_POST['rotulo'] = label_generator($_POST['nome'], 'Model.rotulo', $d->id);
 
+			//Para fazer upload de anexo
+			//$_POST['arquivo'] = $this->_upload($d);
+
 			$info = $d->from_array($_POST, array(
 				'name',
 				'description',
@@ -135,6 +138,9 @@ class Example extends CI_Controller {
 		}
 
 		$d->load_extension('htmlform');
+
+		//Para formulários que precisa de anexo
+		//$d->load_extension('htmlform', array('form_template' => 'dmz_htmlform/form_multipart'));
 		$this->data['form_fields'] = array(
 			'name' => array('class' => 'form-control'),
 			'description' => array('class' => 'form-control'),
@@ -155,7 +161,7 @@ class Example extends CI_Controller {
 	 */
 	function p_excluir($rotulo = '')
 	{
-		acesso('root', 1);
+		acesso('admin', 1);
 		if ( ! empty($rotulo))
 		{
 			$d = new Model();
@@ -174,12 +180,37 @@ class Example extends CI_Controller {
 	}
 
 	/**
+	 * Upload de anexo
+	 * @param  object $object
+	 * @return integer id do arquivo
+	 */
+	/*
+	function _upload($object)
+	{		
+		$file = $object->exists() ? $object->arquivo_id : FALSE ;
+		if (isset($_FILES['arquivo']) AND $_FILES['arquivo']['size'] > 0) {
+			$this->lang->load('upload', 'pt_BR');
+			$this->load->helper('Upload');
+			$config = array('allowed_types' => 'mp3',
+			 	'max_size'	=>	60000, 'name'	=>	'arquivo');
+			$file = upload($config, 2);
+			if (isset($file['file_error'])) {
+				$this->session->set_flashdata('fail', $file['file_error']);
+				redirect($this->controller.'/'.( $object->exists() ? 'editar/'.$object->rotulo : 'cadastrar' ));
+			}
+		}
+		return $file;
+	}
+	*/
+
+	/**
 	 * Anexos
 	 * @param string $rotulo
 	 */
+	/*
 	public function p_anexos($rotulo = '')
 	{
-		acesso('root', 1);
+		acesso('admin', 1);
 
 		$c = new Model();
 		$this->data['data'] = $c->where(array('rotulo' => $rotulo))->get();
@@ -214,12 +245,14 @@ class Example extends CI_Controller {
 
 		$this->load->view('admin/index', $this->data);
 	}
+	*/
 
 	/**
 	 * Upload de arquivos
 	 * @param string $rotulo
 	 * @return mixed
 	 */
+	/*
 	public function p_upload($rotulo = '')
 	{
 		if (acesso('root')) {
@@ -244,15 +277,17 @@ class Example extends CI_Controller {
 		}
 		return FALSE;
 	}
+	*/
 
 	/**
 	 * Excluir anexo
 	 * @param string $rotulo
 	 * @param integer id do arquivo
 	 */
+	/*
 	public function p_excluir_anexo($rotulo = '', $id = '')
 	{
-		acesso('root', 1);
+		acesso('admin', 1);
 		$a = new Arquivo();
 		$a->where(array('id' => $id))
 			->where_related('controller', 'rotulo', $rotulo)->get();
@@ -265,6 +300,52 @@ class Example extends CI_Controller {
 		$this->session->set_flashdata('fail', 'Não foi possível excluir anexo');
 		redirect($this->controller.'/anexos/'.$rotulo);
 	}
+	*/
+
+	/**
+	 * Alterar ordem da página
+	 * @param object
+	 */
+	/*
+	function _alterar_ordem($pagina, $acao = 'aumentar')
+	{
+		$ordem_antiga = $pagina->ordem;
+
+		$p = new Model();
+		if ($acao == 'aumentar') {
+			$p->order_by('ordem', 'desc')->where('ordem <', $ordem_antiga);
+		}
+		else
+		{
+			$p->order_by('ordem', 'asc')->where('ordem >', $ordem_antiga);
+		}
+		$p->get(1);
+		if ($p->exists()) {
+			$ordem_nova = $p->ordem;
+			$p->where('id', $p->id)->update('ordem', $ordem_antiga);
+			$pagina->where('id', $pagina->id)->update('ordem', $ordem_nova);
+
+		}
+		return;
+	}
+	*/
+
+	/**
+	 * Alterar ordem da página
+	 * @param string rótulo
+	 * @param string ação
+	 */
+	/*
+	public function p_alterar_ordem($rotulo, $acao = 'aumentar')
+	{
+		acesso('pagina', 1);
+
+		$p = new Model();
+		$p->where('rotulo', $rotulo)->get();
+		$this->_alterar_ordem($p, $acao);
+		redirect($this->controller.'/listar');
+	}
+	*/
 
 }
 

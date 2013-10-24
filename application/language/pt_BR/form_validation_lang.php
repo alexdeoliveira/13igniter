@@ -26,6 +26,14 @@ $lang['greater_than']			= "O campo %s deve conter um número maior que %s.";
 $lang['date_validation']			= "%s não está no formato dd/mm/aaaa.";
 $lang['hour_validation']			= "%s não está no formato hh:mm.";
 
+$lang['cnpj_valid']                     = "O %s não é válido.";
+$lang['cpf_valid']                      = "O %s não é válido.";
+$lang['cnpj_cpf_valid']                 = "O %s não é válido.";
+$lang['valid_hour']                 = "O campo %s não é válido.";
+$lang['date_min']                 = "O campo %s deve ser menor ou igual que %s.";
+$lang['date_max']                 = "O campo %s deve ser maior ou igual que %s.";
+$lang['youtube_valid']         = "O campo %s não é um vídeo válido do Youtube.";
+
 
 /* End of file form_validation_lang.php */
 /* Location: ./system/language/english/form_validation_lang.php */

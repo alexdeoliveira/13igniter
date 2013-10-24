@@ -36,6 +36,12 @@
 												<?php echo anchor($controller.'/anexos/'.($row->rotulo ? $row->rotulo : $row->id), 'Anexos ('.$row->$field.')', 'class="btn"'); ?>
 										<?php elseif ( $field === 'imagem_count') : ?>
 												<?php echo anchor($controller.'/imagens/'.($row->rotulo ? $row->rotulo : $row->id), 'Imagens ('.$row->$field.')', 'class="btn"'); ?>
+										<?php elseif ( ! empty($row->$field) AND $field === 'ordem') : ?>
+											<div class="hide"><?php echo $row->$field; ?></div>
+											<div class="btn-group">
+												<a href="<?php echo base_url($controller.'/alterar_ordem/'.$row->rotulo.'/aumentar'); ?>" class="btn btn-mini" title="Pra cima"><i class="icon-up-open"></i></a>
+												<a href="<?php echo base_url($controller.'/alterar_ordem/'.$row->rotulo.'/diminuir'); ?>" class="btn btn-mini" title="Pra baixo"><i class="icon-down-open"></i></a>
+											</div>
 										<?php else : ?>
 												<?php echo $row->$field; ?>
 										<?php endif; ?>
