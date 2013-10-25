@@ -11,6 +11,10 @@
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<?php echo $this->session->flashdata('fail'); ?>
 			</div>
+		<?php elseif($this->session->flashdata('error')): ?>
+			<div class="message-alert">
+				<?php echo $this->session->flashdata('error'); ?>
+			</div>
 		<?php endif; ?>
 
 		<!-- Bootstrap core JavaScript
