@@ -1,54 +1,43 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * Model das imagens
+ */
+
 class Images extends CI_Controller {
 
 	function __construct()
 	{
 		parent::__construct();
 		log_message('debug', 'Class '.__CLASS__.' initialized.');
-		$this->load->library('ci_timthumb');
-	}
-
-	function _remap()
-	{
-		$params = $this->uri->segment(2); //Primeiro parâmetro
-		$_SERVER['QUERY_STRING'] = $params; //Altera a imagem do cache quando trocar o parametro
-		$params = explode('__', $params);
-		$src = end($params); //Atribui o último índice do array para a variável src
-
-		array_pop($params); //Remove o último índice do array
-
-		if ($params) {
-			$params = $params[0];
-			$params = $this->_organize_parameters($params);	
-		}
-
-		// retorna a imagem ajustada
-		return $this->ci_timthumb->load($src, $params);
-
+		$this->controller = strtolower(__CLASS__);
 	}
 
 	/**
-	 * Organiza os parâmetros para serem enviados como array para a biblioteca timthumb
-	 * @param array
-	 * @return array
+	 * Método para upload de imagens através do editor redactor
 	 */
-	private function _organize_parameters($params)
+	public function upload()
 	{
-		$params = explode('_', $params);
-		foreach ($params as $param) {
-			$key = substr($param, 0, 1);
-			$value = substr($param, 1);
-			if ($key == 'z' OR $key == 'c') 
+		if (isset($_FILES['file']) AND $_FILES['file']['size'] > 0) 
+		{
+			$config = array('max_size' => 15000, 'name' => 'file');
+			$this->lang->load('upload', 'pt_BR');
+			$this->load->helper('Upload');
+			$image = upload($config);
+			$i = new Imagem();
+			$i->where(array('src' => $image))->get();
+			if ($i->exists())
 			{
-				$key = substr($param, 0, 2);
-				$value = ($key == 'cc' ? '#' : '').substr($param, 2);
+				log_message('debug', 'Upload da imagem '.$image.' através do redactor.');
+				echo json_encode(array('filelink' => static_base_url('imagens/'.$image)));
 			}
-			$params_array[$key] = $value;
+			else
+			{
+				log_message('error', 'Falha ao fazer upload da imagem via redactor: '.$image['file_error']);
+				echo json_encode(array('error' => $image['file_error']));
+			}
 		}
-
-
-		return $params_array;
+		return;
 	}
 
 }
