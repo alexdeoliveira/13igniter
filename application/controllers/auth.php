@@ -50,6 +50,12 @@ class Auth extends CI_Controller {
 	//log the user in
 	function login()
 	{
+		if ($this->ion_auth->logged_in())
+		{
+			//redirect them to the login page
+			redirect('auth/', 'refresh');
+		}
+
 		$this->data['title'] = "Login";
 
 		//validate form input
@@ -73,7 +79,7 @@ class Auth extends CI_Controller {
 			{
 				//if the login was un-successful
 				//redirect them back to the login page
-				$this->session->set_flashdata('fail', $this->ion_auth->errors());
+				$this->session->set_flashdata('error', $this->ion_auth->errors());
 				redirect('auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
 			}
 		}
@@ -178,8 +184,8 @@ class Auth extends CI_Controller {
 			if ($change)
 			{
 				//if the password was successfully changed
-				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				$this->logout();
+				$this->session->set_flashdata('success', $this->ion_auth->messages());
+				redirect('auth/');
 			}
 			else
 			{
@@ -192,7 +198,11 @@ class Auth extends CI_Controller {
 	//forgot password
 	function forgot_password()
 	{
-		$this->form_validation->set_rules('email', 'Email Address', 'required');
+		if ($this->ion_auth->logged_in())
+		{
+			redirect('auth/', 'refresh');
+		}
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
 		$this->data['title'] = 'Esqueceu sua senha?';
 		if ($this->form_validation->run() == false)
 		{
@@ -555,7 +565,10 @@ class Auth extends CI_Controller {
 		}
 
 		$user = $this->ion_auth->user($id)->row();
-
+		if(!isset($user->id))
+		{
+			show_404(current_url());
+		}
 		//process the phone number
 		if (isset($user->phone) && !empty($user->phone))
 		{
@@ -697,8 +710,8 @@ class Auth extends CI_Controller {
 			{
 				// check to see if we are creating the group
 				// redirect them back to the admin page
-				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect("auth", 'refresh');
+				$this->session->set_flashdata('success', $this->ion_auth->messages());
+				redirect("auth/groups", 'refresh');
 			}
 		}
 		else
@@ -748,6 +761,10 @@ class Auth extends CI_Controller {
 		);
 
 		$group = $this->ion_auth->group($id)->row();
+		if(!isset($group->id))
+		{
+			show_404(current_url());
+		}
 
 		//validate form input
 		$this->form_validation->set_rules('group_name', 'nome do grupo', 'required|alpha_dash|xss_clean');
@@ -862,6 +879,51 @@ class Auth extends CI_Controller {
 		$this->data['btn_group'] = array(anchor($this->controller.'/create_group', 'Novo registro', 'class="btn btn-default"'));
 
 		$this->load->view('admin/index', $this->data);
+	}
+
+	/**
+	* Função para remover um grupo
+	* @versao: 25/10/2013 09:57
+	* @author Alex Golle
+	* @param	id do grupo
+	* @return	TRUE | FALSE
+	**/
+	public function delete_group($id = FALSE)
+	{
+		acesso('root', 1);
+		$g = new Group();
+		$g->where('id', $id)->get();
+		if($g->delete())
+		{
+			$this->session->set_flashdata('success', 'O grupo foi excluído');
+		}
+		else {
+			$this->session->set_flashdata('fail', 'Erro ao excluir o grupo. Tente novamente mais tarde.');
+		}
+		
+		redirect("auth/groups");
+	}
+
+	/**
+	* Função para remover um usuário
+	* @versao: 25/10/2013 10:08
+	* @author Alex Golle
+	* @param	id do usuário
+	* @return	TRUE | FALSE
+	**/
+	public function delete_user($id = FALSE)
+	{
+		acesso('root', 1);
+		$remover = $this->ion_auth->delete_user($id);
+		if($remover)
+		{
+			$this->session->set_flashdata('success', 'O usuário foi excluído.');
+		}
+		else {
+			$this->session->set_flashdata('fail', 'Erro ao excluir o usuário. Tente novamente mais tarde.');
+		}
+		
+		redirect("auth/");
 	}
 
 }

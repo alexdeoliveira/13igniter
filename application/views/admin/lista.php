@@ -57,3 +57,4 @@
 		<?php endforeach; ?>
 	</tbody>
 	</table>
+	<?php $this->load->view('admin/modal_delete');?>
