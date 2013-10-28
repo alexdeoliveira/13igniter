@@ -22,6 +22,12 @@
 		<!-- Custom styles for this template -->
 		<link href="<?php echo assets_url('css/offcanvas.css') ?>" rel="stylesheet">
 
+		<?php if (isset($assets_css) AND is_array($assets_css)): ?>
+			<?php foreach ($assets_css as $row): ?>
+				<?php echo $row; ?>
+			<?php endforeach ?>
+		<?php endif ?>
+
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
 			<script src="<?php echo assets_url('bootstrap/assets/js/html5shiv.js') ?>"></script>

@@ -29,5 +29,11 @@
 		<script src="<?php echo assets_url('chosen/chosen.jquery.min.js'); ?>" type="text/javascript"></script>
 
 		<script src="<?php echo assets_url('js/main.js'); ?>" type="text/javascript"></script>
+
+		<?php if (isset($assets_js) AND is_array($assets_js)): ?>
+			<?php foreach ($assets_js as $row): ?>
+				<?php echo $row; ?>
+			<?php endforeach ?>
+		<?php endif ?>
 	</body>
 </html>

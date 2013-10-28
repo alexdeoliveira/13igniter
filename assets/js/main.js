@@ -15,4 +15,11 @@ $(document).ready(function(){
 
 	//Efeito fadeout para as mensagens de sucesso e falha
 	$('.message-alert').delay(5000).fadeOut('slow');
+
+	if ($.fn.redactor) {
+		$('textarea.redactor').redactor({ 
+			imageUpload: $(this).attr('data-upload'),
+			lang: 'pt_br',
+		});
+	}
 });

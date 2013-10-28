@@ -57,7 +57,6 @@
 	  <div class="form-group">
 	  	<label for="groups[]" class="col-lg-2">Grupos</label>
 	  	<div class="col-lg-10">
-	  		<?php print_r($group_set) ?>
 	  		<?php echo form_multiselect('groups[]', $groups, $this->input->post('groups'), 'class="chzn-select form-control"'); ?>
 	  	</div>
 	  </div>
