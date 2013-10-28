@@ -17,9 +17,20 @@ $(document).ready(function(){
 	$('.message-alert').delay(5000).fadeOut('slow');
 
 	if ($.fn.redactor) {
-		$('textarea.redactor').redactor({ 
-			imageUpload: $(this).attr('data-upload'),
-			lang: 'pt_br',
+		$('textarea.redactor').each(function(){
+			var url_upload = $(this).attr('data-upload');
+			$(this).redactor({
+				imageUpload: url_upload,
+				imageUploadErrorCallback: callback,
+				lang: 'pt_br',
+			});
 		});
+		
 	}
 });
+
+
+function callback(obj, json)
+{
+	alert(json.error);
+}
