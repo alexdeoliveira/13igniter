@@ -51,33 +51,16 @@
 	}
 
 ?>
-<script type="text/javascript">
-	$(document).ready(
-		function()
-		{
-			$('textarea[name=<?php echo $id; ?>]').redactor({ 
-				imageUpload: "<?php echo base_url('images/upload') ?>",
-				imageUploadErrorCallback: callback,
-				lang: 'pt_br'
-			});
-		}
-	);
+<div class="form-group<?php echo $row_class; ?>"<?php echo $row_id; ?>>
+	<label class="col-lg-2"<?php echo $label_for; ?>><?php echo $label; ?>:</label>
+	<div class="col-lg-10">
+		<?php echo $content; ?>
+		<?php /*
+		// Enable this section to print errors out for each row.
+		if( ! empty($error)): ?>
+		<span class="error"><?php echo $error; ?></span>
+		<? endif; */
+		?>
 
-	function callback(obj, json)
-	{
-		alert(json.error);
-	}
-</script>
-	<div class="form-group<?php echo $row_class; ?>"<?php echo $row_id; ?>>
-		<label class="col-lg-2"<?php echo $label_for; ?>><?php echo $label; ?>:</label>
-		<div class="col-lg-10">
-			<?php echo $content; ?>
-			<?php /*
-			// Enable this section to print errors out for each row.
-			if( ! empty($error)): ?>
-			<span class="error"><?php echo $error; ?></span>
-			<? endif; */
-			?>
-
-		</div>
 	</div>
+</div>
