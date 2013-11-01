@@ -1,52 +1,49 @@
-	<?php
-	/**
-	* View genérica para listar registros na interface administrativa.
-	*
-	* As colunas exibidas no datatable são determinadas pelo array $list_fields.
-	* Os dados vêm no array de objetos $data.
-	*/
-	?>
-	<table cellpadding="0" cellspacing="0" border="0" class="table normal table-striped table-bordered table-hover">
+<?php $this->load->view('admin/head_section'); ?>
+
+<form method="post" enctype="multipart/form-data" class="plupload23">
+	<div id="uploader">
+		<p>Seu navegador não possui suporte a Flash, Silverlight, Gears, BrowserPlus ou HTML5.</p>
+	</div>
+</form>
+<br>
+<table class="table table-striped table-bordered normal">
 	<thead>
 		<tr>
-				<?php foreach ($list_fields as $row) : ?>
-						<th><?php echo $row; ?></th>
-				<?php endforeach; ?>
-				<th>Cadastro</th>
+			<th>Cadastro</th>
+			<th>Descrição</th>
+			<th>Anexo</th>
+			<th>Excluir</th>
 		</tr>
 	</thead>
 	<tbody>
-		<?php foreach ($dados as $row) : ?>
-				<tr>
-						<?php foreach ($list_fields as $field => $value) : ?>
-								<td>
-										<?php if ( ! empty($row->$field) AND ($field === 'created' OR $field === 'updated')) : ?>
-												<div style="display: none;"><?php echo $row->$field; ?></div>
-												<?php echo '<div title="'.datetime($row->$field, 'txt').'">'.datetime($row->$field).'</div>'; ?>
-										<?php elseif ($field === 'situacao') : ?>
-												<?php echo $row->$field === '1' ? 'Ativo' : 'Inativo'; ?>
-										<?php elseif ($field === 'destaque') : ?>
-												<?php echo $row->$field === '1' ? 'Sim' : 'Não'; ?>
-										<?php elseif ( ! empty($row->$field) AND $field === 'html') : ?>
-												<?php echo $value; ?>
-										<?php elseif ( ! empty($row->$field) AND $field === 'valor') : ?>
-												<?php echo number_format($row->$field, 2, ',', '.'); ?>
-										<?php elseif ( $field === 'arquivo_count') : ?>
-												<?php echo anchor($controller.'/anexos/'.($row->rotulo ? $row->rotulo : $row->id), 'Anexos ('.$row->$field.')', 'class="btn"'); ?>
-										<?php elseif ( $field === 'imagem_count') : ?>
-												<?php echo anchor($controller.'/imagens/'.($row->rotulo ? $row->rotulo : $row->id), 'Imagens ('.$row->$field.')', 'class="btn"'); ?>
-										<?php else : ?>
-												<?php echo $row->$field; ?>
-										<?php endif; ?>
-								</td>
-						<?php endforeach; ?>
-						<td>
-								<div class="btn-group">
-										<?php echo anchor($controller.'/'.(isset($link_editar) ? $link_editar : 'editar').'/'.( ($row->rotulo) ? $row->rotulo : ($row->username ? $row->username : ($row->numero ? $row->numero : $row->id)) ), '<span class="icon-pencil"></span>', 'title="Editar" class="btn btn-default"'); ?>
-										<a href="#deleteModal" title="Excluir" data-url="<?php echo base_url($controller.'/'.(isset($link_excluir) ? $link_excluir : 'excluir').'/'.( ($row->rotulo) ? $row->rotulo : ($row->username ? $row->username : ($row->numero ? $row->numero : $row->id)) )); ?>" class="btn btn-default delete" data-toggle="modal"><span class="icon-trash-1"></span></a>
-								</div>
-						</td>
-				</tr>
-		<?php endforeach; ?>
+		<?php $tipo = ($this->uri->segment(3) == 'imagem' ? '1' : '2'); ?>
+		<?php foreach ($arquivos as $row): ?>
+			<tr>
+				<td>
+					<div style="display: none;"><?php echo $row->created; ?></div>
+					<?php echo '<div title="'.datetime($row->created, 'txt').'">'.datetime($row->created).'</div>'; ?>
+				</td>
+				<td>
+					<form action="<?php echo base_url('d/renomear_anexo/'.$row->id.'/'.$tipo.'/'.$controller.'/'.$rotulo) ?>" method="post" name="nome">
+						<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+							<input type="text" value="<?php echo ($tipo == 1) ? $row->alt : $row->arquivo_descricao; ?>" name="nome" class="form-control" />
+						</div>
+						<button type="submit" class="btn btn-default btn-sm">Salvar</button>
+					</form>
+				</td>
+				<td><?php echo anchor('d/download/'.($tipo == 1 ? 'imagens/'.$row->src : 'arquivos/'.$row->arquivo), '<i class="icon-download"></i> Baixar anexo', 'class="btn btn-default btn-sm"') ?></td>
+				<td>
+					<a href="<?php echo base_url('d/excluir_anexo/'.$row->id.'/'.$tipo.'/'.$controller.'/'.$rotulo); ?>" title="Excluir" class="btn btn-default btn-sm"><span class="icon-trash-1"></span></a>
+				</td>
+			</tr>
+		<?php endforeach ?>
 	</tbody>
-	</table>
+	<tfoot>
+		<tr>
+			<th>Cadastro</th>
+			<th>Descrição</th>
+			<th>Anexo</th>
+			<th>Excluir</th>
+		</tr>
+	</tfoot>
+</table>
