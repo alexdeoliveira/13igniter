@@ -47,7 +47,6 @@ class Imagens extends CI_Controller {
 			$params_array[$key] = $value;
 		}
 
-
 		return $params_array;
 	}
 

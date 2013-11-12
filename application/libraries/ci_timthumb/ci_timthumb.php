@@ -4,9 +4,6 @@ class Ci_timthumb {
 
 	private $CI;
 
-	//Diretório das imagens
-	var $dir = 'images/';
-
 	public function __construct()
 	{
 		$this->CI =& get_instance();
@@ -16,7 +13,7 @@ class Ci_timthumb {
 	{
 		//Se não existir parâmetros, pega as dimensoes reais da imagem
 		if (!$params) {
-			$filename = $this->$dir.$src;
+			$filename = $this->CI->config->item('img_directory').$src;
 			$imginfo = getimagesize($filename);
 			list($width, $height, $type, $attr) = getimagesize($filename);
 			if ($width) {
@@ -39,7 +36,7 @@ class Ci_timthumb {
 		$ct		= isset($params['ct']) ? $params['ct'] : FALSE;
 
 		$get = array(
-			'src' 	=> 	base_url().$this->dir.$src,
+			'src' 	=> 	base_url().$this->CI->config->item('img_directory').$src,
 			'w'		=>	$w,
 			'h'		=>	$h,
 			'q'		=>	$q,
