@@ -17,10 +17,10 @@ class Ci_timthumb {
 			$imginfo = getimagesize($filename);
 			list($width, $height, $type, $attr) = getimagesize($filename);
 			if ($width) {
-				$params['w'] = $width > 700 ? 700 : $width ;
+				$params['w'] = $width > $this->CI->config->item('up_img_w') ? $this->CI->config->item('up_img_w') : $width ;
 			}
 			if ($height) {
-				$params['h'] = $height > 700 ? 500 : $height ;
+				$params['h'] = $height > $this->CI->config->item('up_img_w') ? 500 : $height ;
 			}
 			$params['zc'] = 1;
 		}
