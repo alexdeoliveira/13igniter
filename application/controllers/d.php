@@ -113,14 +113,16 @@ class D extends CI_Controller {
 			if ($a->arquivo_descricao != NULL) {
 				$nome = $a->arquivo_descricao.$a->ext;
 			}
+			$arquivo_b = $this->config->item('file_directory').$nom_a;
 		}
 		else {
 			show_404(current_url());
 		}
 
-
 		header('Content-Description: File Transfer');
-		header('Content-Disposition: attachment; filename="'.$nome.'"');
+		if ($tipo == 'imagens') {
+			header('Content-Disposition: attachment; filename="'.$nome.'"');
+		}
 		header('Content-Type: application/octet-stream');
 		header('Content-Transfer-Encoding: binary');
 		header('Content-Length: ' . filesize($arquivo_b));
