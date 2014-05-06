@@ -1,6 +1,9 @@
 .plupload_filelist_footer {
 	height: 37px!important;
 }
+div.sidebar-nav > .nav > li > a {
+	padding: 10px 0px;
+}
 .message-alert {
 	position: absolute;
 	top: 1px;
