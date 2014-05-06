@@ -57,8 +57,15 @@
 	</tbody>
 	<tfoot>
 		<tr>
-			<th>Cadastro</th>
+			<?php if ($this->uri->segment(3) == 'imagem'): ?>
+				<th>Imagem</th>
+			<?php else: ?>
+				<th>Cadastro</th>
+			<?php endif ?>
 			<th>Descrição</th>
+			<?php if ($this->uri->segment(3) == 'imagem'): ?>
+				<th>Destaque</th>
+			<?php endif ?>
 			<th>Anexo</th>
 			<th>Excluir</th>
 		</tr>
