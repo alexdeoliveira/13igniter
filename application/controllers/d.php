@@ -132,4 +132,30 @@ class D extends CI_Controller {
 
 		readfile($arquivo_b);
 	}
+
+	// Função para trocar a imagem destaque das galerias
+	// Atribui o id de imagem destaque (imagem_id) nas tabelas que tem relação com a galeria
+	function p_destaque($id=FALSE, $rotulo='')
+	{
+		$g = new Galeria();
+		$g->where('rotulo', $rotulo)->get();
+
+		$i = new Imagem();
+		$i->get_by_related($g);
+
+		foreach ($i as $row) {
+			if ($row->id == $id) {
+				$g_2 = new Galeria();
+				$g_2->where('rotulo', $rotulo)->update('imagem_id', $row->id);
+
+				// Codigo para trocar a imagem destaque (imagem_id) na tabela que tem relacao com galeria
+				/*
+					EXEMPLO:
+					$n = new Noticia();
+					$n->where('galeria_id', $g->id)->update('imagem_id', $row->id);
+				*/
+			}
+		}
+		redirect('galerias/anexos/imagem/'.$rotulo);
+	}
 }
