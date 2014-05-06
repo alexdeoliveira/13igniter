@@ -1,3 +1,6 @@
+.plupload_filelist_footer {
+	height: 37px!important;
+}
 .message-alert {
 	position: absolute;
 	top: 1px;
