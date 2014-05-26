@@ -44,9 +44,9 @@ $route['default_controller'] = "welcome";
 $route['404_override'] = 'errors/error_404';
 
 /* Colocar todos os controllers
- * Se for passado um parametro que não é um controller será direcionado para o controller páginas
+ | Se for passado um parametro que não é um controller será direcionado para o controller páginas
  */
-$route['^((?!index\.php|assets|robots\.txt|welcome|imagens|arquivos|auth|d)\S*)'] = "paginas/$1";
+$route['^((?!index\.php|assets|robots\.txt|welcome|imagens|arquivos|auth|d|images|remove_img_sem_uso)\S*)'] = "paginas/$1";
 
 
 /* End of file routes.php */
