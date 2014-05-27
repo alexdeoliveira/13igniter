@@ -926,4 +926,11 @@ class Auth extends CI_Controller {
 		redirect("auth/");
 	}
 
+	/**
+	 * Página erro 404
+	 */
+	public function error_404()
+	{
+		$this->load->view('auth/error_404');
+	}
 }

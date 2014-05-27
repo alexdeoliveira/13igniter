@@ -41,13 +41,7 @@
 $route['default_controller'] = "welcome";
 
 // View para a página de 404
-$route['404_override'] = 'errors/error_404';
-
-/* Colocar todos os controllers
- | Se for passado um parametro que não é um controller será direcionado para o controller páginas
- */
-$route['^((?!index\.php|assets|robots\.txt|welcome|imagens|arquivos|auth|d|images|remove_img_sem_uso)\S*)'] = "paginas/$1";
-
+$route['404_override'] = 'auth/error_404';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
