@@ -39,8 +39,8 @@
 						<?php elseif ( ! empty($row->$field) AND $field === 'ordem') : ?>
 							<div class="hide"><?php echo $row->$field; ?></div>
 							<div class="btn-group">
-								<a href="<?php echo base_url($controller.'/alterar_ordem/'.$row->rotulo.'/aumentar'); ?>" class="btn btn-default btn-sm <?php echo ($row->ordem == 1) ? 'disabled' : null; ?>" title="Pra cima"><i class="icon-up-open"></i></a>
-								<a href="<?php echo base_url($controller.'/alterar_ordem/'.$row->rotulo.'/diminuir'); ?>" class="btn btn-default btn-sm <?php echo ($row->ordem == $linhas) ? 'disabled' : null; ?>" title="Pra baixo"><i class="icon-down-open"></i></a>
+								<a href="<?php echo base_url($controller.'/alterar_ordem/'.$row->rotulo.'/diminuir'); ?>" class="btn btn-default btn-sm <?php echo ($row->ordem == $linhas) ? 'disabled' : null; ?>" title="Pra baixo"><i class="icon-up-open"></i></a>
+								<a href="<?php echo base_url($controller.'/alterar_ordem/'.$row->rotulo.'/aumentar'); ?>" class="btn btn-default btn-sm <?php echo ($row->ordem == 1) ? 'disabled' : null; ?>" title="Pra cima"><i class="icon-down-open"></i></a>
 							</div>
 						<?php elseif ( $field === 'anexos_i_a') : ?>
 							<div class="btn-group">
