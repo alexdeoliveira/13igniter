@@ -50,15 +50,13 @@
 		<?php endif; ?>
 	</head>
 
-	<body class="">
+	<body>
 		<div class="container">
-			<div class="thumbnail">
-				<div class="well-404 text-center">
-					<h1>Oops!</h1>
-					<p class="lead">Página não encontrada</p>
-					<p>O endereço abaixo não existe <br/> <strong><?php echo current_url(); ?></strong></p>
-					<a href="<?php echo base_url(); ?>" class="btn btn-primary">Página inicial</a>
-				</div>
+			<div class="well text-center">
+				<h1>Oops!</h1>
+				<p class="lead">Página não encontrada</p>
+				<p>O endereço abaixo não existe <br/> <strong><?php echo current_url(); ?></strong></p>
+				<a href="<?php echo base_url(); ?>" class="btn btn-primary">Página inicial</a>
 			</div>
 		</div>
 	</body>

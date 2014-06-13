@@ -857,12 +857,10 @@ class Ion_auth_model extends CI_Model
 		                  ->limit(1)
 		                  ->get($this->tables['users']);
 
-						  
 		if($this->is_time_locked_out($identity))
 		{
 			//Hash something anyway, just to take up time
 			$this->hash_password($password);
-			
 			$this->trigger_events('post_login_unsuccessful');
 			$this->set_error('login_timeout');
 
