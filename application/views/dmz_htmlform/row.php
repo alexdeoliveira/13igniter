@@ -52,8 +52,8 @@
 
 ?>
 
-	<div class="form-group<?php echo $row_class; ?>"<?php echo $row_id; ?>>
-		<label class="col-lg-2" <?php echo $label_for; ?>><?php echo $label; ?></label>
+	<div class="form-group <?php echo $row_class; ?>"<?php echo $row_id; ?>>
+		<label class="col-lg-2 control-label" <?php echo $label_for; ?>><?php echo $label; ?></label>
 		<div class="col-lg-10">
 			<?php echo $content; ?>
 			<?php /** if( ! empty($error)): ?>
