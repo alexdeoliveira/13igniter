@@ -30,6 +30,18 @@
 
 		<script src="<?php echo assets_url('js/main.js'); ?>" type="text/javascript"></script>
 
+			<script type="text/javascript"> 
+				var $buoop = {vs:{i:8,f:15,o:11,s:4,n:9}};
+				$buoop.ol = window.onload; 
+				window.onload=function(){ 
+				 try {if ($buoop.ol) $buoop.ol();}catch (e) {} 
+				 var e = document.createElement("script"); 
+				 e.setAttribute("type", "text/javascript"); 
+				 e.setAttribute("src", "http://browser-update.org/update.js"); 
+				 document.body.appendChild(e); 
+				} 
+			</script>
+		
 		<?php if (isset($assets_js) AND is_array($assets_js)): ?>
 			<?php foreach ($assets_js as $row): ?>
 				<?php echo $row; ?>
