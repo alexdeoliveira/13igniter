@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$('a.delete').on('click', function(){
+	$('table, a').on('click', '.delete', function(){
 		var url = $(this).attr('data-url');
 		$('#deleteModal .modal-footer a.delete-url').attr('href', url);
 	});
