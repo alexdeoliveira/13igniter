@@ -60,9 +60,9 @@ class Example extends CI_Controller {
 	{
 		acesso('admin', 1);
 		$this->data['list_fields'] = array(
-			'created' 	=> 'Data Cadastro',
-			'updated' 	=> 'Data Edição',
-			'nome'		=> 'Nome',
+			'data_cadastro'=> 'Data Cadastro',
+			'data_edicao'=> 'Data Edição',
+			'nome'=> 'Nome',
 		);
 		$this->data['title'] = 'Título';
 		$this->data['page'] = 'admin/lista';
@@ -70,7 +70,7 @@ class Example extends CI_Controller {
 		$dados = new Model();
 		$this->data['dados'] = $dados->get();
 
-		$this->data['btn_group'] = array(anchor($this->control.'/cadastrar', 'Novo registro', 'class="btn brn-default"'));
+		$this->data['btn_group'] = array(anchor($this->controller.'/cadastrar', 'Novo registro', 'class="btn btn-default"'));
 
 		$this->data['breadcrumb'] = array(
 			$this->data['title'],
@@ -130,25 +130,39 @@ class Example extends CI_Controller {
 				'description',
 				'rotulo',
 			));
+			
+			// pega a imagem do redactor
+			//$this->config->set_item('global_xss_filtering', FALSE);
 			if ($d->save($info))
 			{
+				//redactor_convert_imagens('conteudo', $n, $n->titulo);
+				//$this->config->set_item('global_xss_filtering', TRUE);
+
 				$this->session->set_flashdata('success', 'Registro efetuado com sucesso!');
-				redirect($this->controller.'/editar/'.$d->rotulo);
+				redirect($this->controller.'/listar');
 			}
 		}
 
 		$d->load_extension('htmlform');
 
 		//Para formulários que precisa de anexo
-		//$d->load_extension('htmlform', array('form_template' => 'dmz_htmlform/form_multipart'));
+		//$c->load_extension('htmlform');
+		//$this->data['template'] = 'dmz_htmlform/form_multipart';
 		$this->data['form_fields'] = array(
 			'name' => array('class' => 'form-control'),
 			'description' => array('class' => 'form-control'),
 		);
 
+		$this->data['assets_js'] = array(
+			'<script src="'.assets_url('redactor/pt_br.js').'"></script>',
+			'<script src="'.assets_url('redactor/redactor.min.js').'"></script>'
+		);
+		$this->data['assets_css'] = array(
+			'<link rel="stylesheet" type="text/css" href="'.assets_url('redactor/redactor.css').'">'
+		);
+		
 		$this->data['btn_group'] = array(
 			anchor($this->controller.'/listar', 'Voltar', 'class="btn btn-default"'), 
-			anchor($this->controller.'/cadastrar', 'Novo registro', 'class="btn btn-default"')
 		);
 
 		$this->load->view('admin/index', $this->data);
