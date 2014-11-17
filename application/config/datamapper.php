@@ -8,8 +8,11 @@
 
 $config['prefix'] = '';
 $config['join_prefix'] = '';
-$config['error_prefix'] = '<p class="help-inline">';
-$config['error_suffix'] = '</p>';
+$config['error_prefix'] = '<div class="alert alert-danger" role="alert">';
+$config['error_suffix'] = '<button type="button" class="close" data-dismiss="alert">
+  <span aria-hidden="true">&times;</span>
+  <span class="sr-only">Close</span>
+</button></div>';
 $config['created_field'] = 'data_cadastro';
 $config['updated_field'] = 'data_edicao';
 $config['local_time'] = FALSE;
