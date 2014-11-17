@@ -25,9 +25,41 @@
 							<div style="display: none;"><?php echo $row->$field; ?></div>
 							<?php echo '<div title="'.datetime($row->$field, 'txt').'">'.datetime($row->$field).'</div>'; ?>
 						<?php elseif ($field === 'situacao') : ?>
-							<?php echo $row->$field === '1' ? '<div class="btn-group"><a title="Ativar" type="button" class="btn btn-default btn-sm disabled" href="'.base_url($controller.'/situacao/'.$row->rotulo.'/1').'"><span class="icon-eye-1"></span></a><a href="'.base_url($controller.'/situacao/'.$row->rotulo.'/0').'" title="Desativar" type="button" class="btn btn-default btn-sm"><span class="icon-eye-1"></span></a></div>' : '<div class="btn-group"><a title="Ativar" type="button" class="btn btn-default btn-sm" href="'.base_url($controller.'/situacao/'.$row->rotulo.'/1').'"><span class="icon-eye-1"></span></a><a href="'.base_url($controller.'/situacao/'.$row->rotulo.'/0').'" title="Desativar" type="button" class="btn btn-default btn-sm disabled"><span class="icon-eye-1"></span></a></div>'; ?>
+							<?php echo $row->$field === '1' ? '
+							<div class="btn-group">
+								<a title="Ativar" type="button" class="btn btn-default btn-sm disabled" href="'.base_url($controller.'/situacao/'.$row->rotulo.'/1').'">
+									<span class="icon-eye-1"></span>
+								</a>
+								<a href="'.base_url($controller.'/situacao/'.$row->rotulo.'/0').'" title="Desativar" type="button" class="btn btn-default btn-sm">
+									<span class="icon-eye-off"></span>
+								</a>
+							</div>' : 
+							'<div class="btn-group">
+								<a title="Ativar" type="button" class="btn btn-default btn-sm" href="'.base_url($controller.'/situacao/'.$row->rotulo.'/1').'">
+									<span class="icon-eye-1"></span>
+								</a>
+								<a href="'.base_url($controller.'/situacao/'.$row->rotulo.'/0').'" title="Desativar" type="button" class="btn btn-default btn-sm disabled">
+									<span class="icon-eye-off"></span>
+								</a>
+							</div>'; ?>
 						<?php elseif ($field === 'destaque') : ?>
-							<?php echo $row->$field === '1' ? '<div class="btn-group"><a title="Colocar em destaque" type="button" class="btn btn-default btn-sm disabled" href="'.base_url($controller.'/destaque/'.$row->rotulo.'/1').'"><span class="icon-star"></span></a><a href="'.base_url($controller.'/destaque/'.$row->rotulo.'/0').'" title="Retirar do destaque" type="button" class="btn btn-default btn-sm"><span class="icon-star"></span></a></div>' : '<div class="btn-group"><a title="Colocar em destaque" type="button" class="btn btn-default btn-sm" href="'.base_url($controller.'/destaque/'.$row->rotulo.'/1').'"><span class="icon-star"></span></a><a href="'.base_url($controller.'/destaque/'.$row->rotulo.'/0').'" title="Retirar do destaque" type="button" class="btn btn-default btn-sm disabled"><span class="icon-star"></span></a></div>'; ?>
+							<?php echo $row->$field === '1' ? 
+							'<div class="btn-group">
+								<a title="Colocar em destaque" type="button" class="btn btn-default btn-sm disabled" href="'.base_url($controller.'/destaque/'.$row->rotulo.'/1').'">
+									<span class="icon-star"></span>
+								</a>
+								<a href="'.base_url($controller.'/destaque/'.$row->rotulo.'/0').'" title="Retirar do destaque" type="button" class="btn btn-default btn-sm">
+									<span class="icon-star-empty-1"></span>
+								</a>
+							</div>' : 
+							'<div class="btn-group">
+								<a title="Colocar em destaque" type="button" class="btn btn-default btn-sm" href="'.base_url($controller.'/destaque/'.$row->rotulo.'/1').'">
+									<span class="icon-star"></span>
+								</a>
+								<a href="'.base_url($controller.'/destaque/'.$row->rotulo.'/0').'" title="Retirar do destaque" type="button" class="btn btn-default btn-sm disabled">
+									<span class="icon-star-empty-1"></span>
+								</a>
+							</div>'; ?>
 						<?php elseif ( ! empty($row->$field) AND $field === 'html') : ?>
 							<?php echo $value; ?>
 						<?php elseif ( ! empty($row->$field) AND $field === 'valor') : ?>
