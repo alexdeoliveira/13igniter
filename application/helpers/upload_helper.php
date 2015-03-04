@@ -467,7 +467,7 @@ if ( ! function_exists('redactor_convert_imagens'))
 					preg_match('/alt=\"([^\"]*)/', $img, $alt_novo);
 					$alt = !empty($alt_novo[1]) ? $alt_novo[1] : $alt ;
 
-					$_POST[$field] = str_replace($img, '<img alt="'.$alt.'" src="'.static_base_url('imagens/'.$style.$new_image).'" '.( !empty($tag_style) ? 'style="'.$tag_style.'"' : NULL ).' />', $_POST[$field]);
+					$_POST[$field] = str_replace($img, '<img alt="'.$alt.'" src="'.(url_redactor() ? url_redactor() : '/').'imagens/'.$style.$new_image.'" '.( !empty($tag_style) ? 'style="'.$tag_style.'"' : NULL ).' />', $_POST[$field]);
 
 					$i->clear();
 					$i->where('src', $new_image)->get();

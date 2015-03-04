@@ -135,4 +135,22 @@ if ( ! function_exists('static_base_url'))
 	}
 }
 
+
+/**
+ * Retorna o caminho da pasta do site 
+ */
+
+if (!function_exists('url_redactor')) {
+	function url_redactor()
+	{
+		if (ENVIRONMENT == 'production') {
+			return;
+		}
+
+		$url = explode('http://'.$_SERVER["SERVER_NAME"], base_url());
+
+		return $url[1];
+	}
+}
+
 // End of file
