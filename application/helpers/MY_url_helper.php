@@ -43,7 +43,7 @@ if ( ! function_exists('rotulo'))
 		$CI =& get_instance();
 		$CI->load->helper('url');
 		$CI->load->helper('text');
-		return substr(strtolower(url_title(convert_accented_characters(character_limiter($str, 60, NULL)), '_')), 0, 255);
+		return substr(strtolower(url_title(convert_accented_characters(character_limiter($str, 60, NULL)), '-')), 0, 255);
 	}
 
 }
@@ -102,7 +102,7 @@ if ( ! function_exists('label_generator'))
 			}
 			else
 			{
-				$label = rotulo($char.'_'.$str);
+				$label = rotulo($char.'-'.$str);
 				$char ++;
 			}
 		}
