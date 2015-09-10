@@ -15,3 +15,16 @@ if ( ! function_exists('verifica_destaque')) {
 		return false;
 	}
 }
+
+/**
+ * Corta uma string em X caracteres
+ * @param string $string
+ * @return string 
+ */
+if (! function_exists('string_limiter')) {
+	function string_limiter($string, $lim = 250)
+	{
+		$string = (strlen($string) > $lim) ? mb_substr($string ,0, $lim).'...' : $string;
+		return $string;
+	}
+}
